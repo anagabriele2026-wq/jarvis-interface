@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050b16">
+<title>J.A.R.V.I.S. — Interface</title>
+<style>
+:root{--cyan:#59d7ff;--blue:#168bff;--muted:#7398b8;--bg:#030711}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:radial-gradient(ellipse at 50% 43%,#0b2340 0%,#061326 34%,#030711 75%);color:#e8f7ff;font-family:Arial,Helvetica,sans-serif}
+body{min-height:100svh;overflow:hidden}
+main{min-height:100svh;display:flex;flex-direction:column;align-items:center;padding:22px 18px 24px;position:relative;isolation:isolate}
+main:before,main:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1}
+main:before{opacity:.2;background-image:linear-gradient(rgba(67,174,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(67,174,255,.12) 1px,transparent 1px);background-size:38px 38px;mask-image:linear-gradient(transparent,#000 18%,#000 80%,transparent)}
+main:after{background:radial-gradient(circle at 50% 42%,transparent 0 23%,rgba(20,116,190,.08) 24%,transparent 55%)}
+.top{width:min(100%,700px);display:flex;justify-content:space-between;align-items:center;letter-spacing:.18em;font-size:12px;color:var(--cyan)}
+.brand{font-weight:700;font-size:15px;letter-spacing:.28em}
+.status{border:1px solid #1d6b91;border-radius:20px;padding:7px 10px;color:#8ee8ff;font-size:10px;letter-spacing:.12em}
+.core-wrap{flex:1;display:flex;align-items:center;justify-content:center;width:100%;min-height:300px;position:relative}
+.core{width:min(70vw,310px);aspect-ratio:1;position:relative;display:grid;place-items:center;filter:drop-shadow(0 0 22px rgba(27,164,255,.25))}
+.ring{position:absolute;border-radius:50%;border:1px solid rgba(74,194,255,.55);box-shadow:0 0 18px rgba(26,154,255,.15),inset 0 0 18px rgba(26,154,255,.08)}
+.r1{inset:0;border-width:2px;border-top-color:#b4f2ff;animation:spin 14s linear infinite}
+.r2{inset:7%;border-style:dashed;border-color:rgba(62,181,255,.75);animation:spin 22s linear infinite reverse}
+.r3{inset:16%;border-width:3px;border-left-color:transparent;border-right-color:transparent;animation:spin 8s linear infinite}
+.r4{inset:25%;border-color:rgba(97,219,255,.75);box-shadow:0 0 30px rgba(41,173,255,.28),inset 0 0 24px rgba(41,173,255,.2)}
+.r5{inset:34%;border:2px solid rgba(117,229,255,.85);box-shadow:0 0 35px rgba(35,175,255,.5),inset 0 0 22px rgba(35,175,255,.3)}
+.r5:after{content:"";position:absolute;inset:18%;border-radius:50%;background:radial-gradient(circle,#c6f7ff 0%,#56cfff 15%,#087bce 42%,#03172d 75%);box-shadow:0 0 25px #20aaff}
+.tick{position:absolute;inset:3%;border-radius:50%;background:repeating-conic-gradient(from 0deg,rgba(94,206,255,.9) 0deg 1deg,transparent 1deg 12deg);mask:radial-gradient(circle,transparent 0 46%,#000 47% 49%,transparent 50%)}
+.core.listening{filter:drop-shadow(0 0 34px rgba(40,210,255,.65))}
+.core.speaking .r5{animation:pulse 1s ease-in-out infinite alternate}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{to{transform:scale(1.08);box-shadow:0 0 55px rgba(50,205,255,.8),inset 0 0 35px rgba(50,205,255,.5)}}
+.name{text-align:center;letter-spacing:.42em;font-size:clamp(22px,6vw,30px);margin:0 0 7px 0;text-shadow:0 0 18px rgba(76,196,255,.65)}
+.sub{text-align:center;color:var(--muted);font-size:10px;letter-spacing:.2em}
+.message{min-height:42px;margin:22px 0 8px;text-align:center;color:#c8eaff;font-size:14px;line-height:1.5}
+.wave{height:28px;display:flex;align-items:center;justify-content:center;gap:4px;margin:0 0 20px}
+.wave i{width:3px;height:6px;border-radius:4px;background:#45caff;opacity:.8}
+.speaking .wave i{animation:wave .7s ease-in-out infinite alternate}
+.wave i:nth-child(3n){animation-delay:.18s}.wave i:nth-child(2n){animation-delay:.32s}
+@keyframes wave{to{height:24px;opacity:1}}
+.controls{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;width:min(100%,480px)}
+button{background:rgba(8,30,52,.8);border:1px solid #21658c;color:#bcecff;padding:12px 16px;border-radius:7px;letter-spacing:.08em;font-size:11px}
+button:active{background:#10436a}
+.footer{width:min(100%,700px);display:flex;justify-content:space-between;color:#547896;font-size:9px;letter-spacing:.12em;margin-top:22px}
+@media(min-height:800px){.core-wrap{min-height:390px}}
+</style>
+</head>
+<body>
+<main id="app">
+  <header class="top"><div class="brand">J.A.R.V.I.S.</div><div class="status" id="status">● SISTEMA PRONTO</div></header>
+  <section class="core-wrap" aria-label="Reator holográfico">
+    <div class="core" id="core"><div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div><div class="ring r4"></div><div class="ring r5"></div><div class="tick"></div></div>
+  </section>
+  <h1 class="name">JARVIS</h1>
+  <div class="sub">PERSONAL ASSISTANT • INTERFACE CONCEPT</div>
+  <div class="message" id="message">À disposição, chefe.<br>Interface visual de demonstração.</div>
+  <div class="wave" id="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="controls">
+    <button onclick="setMode('ready')">AGUARDANDO</button>
+    <button onclick="setMode('listening')">OUVINDO</button>
+    <button onclick="setMode('speaking')">FALANDO</button>
+  </div>
+  <footer class="footer"><span>CORE SYSTEM // VISUAL DEMO</span><span id="clock">--:--:--</span></footer>
+</main>
+<script>
+const core=document.getElementById('core'),app=document.getElementById('app'),statusEl=document.getElementById('status'),message=document.getElementById('message');
+function setMode(mode){
+ core.className='core';app.classList.remove('speaking');
+ if(mode==='listening'){core.classList.add('listening');statusEl.textContent='● OUVINDO';message.textContent='Estou ouvindo, chefe.'}
+ else if(mode==='speaking'){core.classList.add('speaking');app.classList.add('speaking');statusEl.textContent='● FALANDO';message.textContent='Processando resposta…'}
+ else{statusEl.textContent='● SISTEMA PRONTO';message.innerHTML='À disposição, chefe.<br>Interface visual de demonstração.'}
+}
+function tick(){document.getElementById('clock').textContent=new Date().toLocaleTimeString('pt-BR')}
+tick();setInterval(tick,1000);
+</script>
+</body>
+</html>
